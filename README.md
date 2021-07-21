@@ -27,7 +27,8 @@ jobs:
       uses: romoh/dependencies-autoupdate@v1
       with: 
         token: ${{ secrets.GITHUB_TOKEN }}
-        update-command: "'go get -u && go mod tidy && go build'" # support only for golang
+        # support only for golang
+        update-command: "'go get -u && go mod tidy && go build'"
         update-path: "'./test/go'" #optional
 ```
 

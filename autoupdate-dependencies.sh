@@ -25,9 +25,10 @@ fi
 #     exit 1
 # fi
 
-# remove optional params markers
-update_path_value=${update_path%?}
-if [ -n "$update_path_value" ]; then
+if [ -n "$update_path" ]; then
+    # remove optional params markers
+    update_path_value=${update_path%?}
+
     # if path is set, use that. otherwise default to current working directory
     echo "Change directory to $update_path_value"
     cd "$update_path_value"
@@ -73,7 +74,7 @@ if [ -f upgraded.log ]; then
 
         cat >> commit.log << EOF
 
-##Bumps [$remote_repo](https://$remote_repo) from $base_ref to $head_ref.
+## Bumps [$remote_repo](https://$remote_repo) from $base_ref to $head_ref.
 - [Release notes](https://$remote_repo/releases)
 - [Changelog](https://$remote_repo/blob/main/CHANGELOG.md)
 - [Commits](https://$remote_repo/compare/$base_ref...$head_ref)
