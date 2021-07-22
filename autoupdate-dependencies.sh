@@ -5,9 +5,9 @@ set -e
 
 token=$1
 # supported language: golang
-update_command=$2
-update_path=$3
-on_changes_command=$4
+# update_command=$2
+update_path=$2
+on_changes_command=$3
 repo=$GITHUB_REPOSITORY #owner and repository: ie: user/repo
 username=$GITHUB_ACTOR
 
