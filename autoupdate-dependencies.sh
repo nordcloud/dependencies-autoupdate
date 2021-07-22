@@ -95,7 +95,9 @@ then
     git config --global user.email $email
     git config --global user.name $username
 
-    if [ -z "git remote | grep authenticated" ]
+    # add access to remote repository if not exist
+    remote="$(git remote)"
+    if [[ "$remote" == "origin" ]]
     then
         echo "Configure access to remote repository"
         # format: https://[username]:[token]@github.com/[organization]/[repo].git
