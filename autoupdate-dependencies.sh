@@ -35,6 +35,7 @@ if [ -n "$update_path" ]; then
 
     # convert slesh to dash in path (monorepo support), ie: /test/path -> -test-path
     branch_path="$(echo "$update_path_value" | tr -d '.' | tr '/' '-')"
+    echo $branch_path
 fi
 
 # assumes the repo is already cloned as a prerequisite for running the script
@@ -94,8 +95,11 @@ then
     git config --global user.email $email
     git config --global user.name $username
 
-    # format: https://[username]:[token]@github.com/[organization]/[repo].git
-    git remote add authenticated "https://$username:$token@github.com/$repo.git"
+    if [ -z "git remote | grep authenticated"]
+    then
+        # format: https://[username]:[token]@github.com/[organization]/[repo].git
+        git remote add authenticated "https://$username:$token@github.com/$repo.git"
+    fi
 
     # execute command to run when changes are deteced, if provided
     on_changes_command_value=${on_changes_command%?}
