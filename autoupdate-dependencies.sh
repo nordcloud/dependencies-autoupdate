@@ -95,7 +95,7 @@ then
     git config --global user.email $email
     git config --global user.name $username
 
-    if [ -z "git remote | grep authenticated"]
+    if [ -z "git remote | grep authenticated" ]
     then
         # format: https://[username]:[token]@github.com/[organization]/[repo].git
         git remote add authenticated "https://$username:$token@github.com/$repo.git"
