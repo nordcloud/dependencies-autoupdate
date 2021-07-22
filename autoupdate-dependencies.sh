@@ -97,6 +97,7 @@ then
 
     if [ -z "git remote | grep authenticated" ]
     then
+        echo "Configure access to remote repository"
         # format: https://[username]:[token]@github.com/[organization]/[repo].git
         git remote add authenticated "https://$username:$token@github.com/$repo.git"
     fi
@@ -109,14 +110,9 @@ then
         eval $on_changes_command_value
     fi
 
-    # explicitly add all files including untracked
-    git add -A
-    # exclude from commit temporary files
-    git reset commit.log upgraded.log
-
     # commit the changes to updated files
     if [ -f commit.log ]; then
-        git commit -F commit.log
+        git commit -a -F commit.log
     else
         git commit -a -m "Auto-updated dependencies"
     fi
