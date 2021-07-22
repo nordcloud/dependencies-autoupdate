@@ -34,7 +34,7 @@ if [ -n "$update_path" ]; then
     cd "$update_path_value"
 
     # convert slesh to dash in path (monorepo support), ie: /test/path -> -test-path
-    branch_path="$(echo "$update_path_value" | tr '/' '-')"
+    branch_path="$(echo "$update_path_value" | tr -d '.' | tr '/' '-')"
 fi
 
 # assumes the repo is already cloned as a prerequisite for running the script
