@@ -39,7 +39,7 @@ if [ -n "$update_path" ]; then
 fi
 
 # assumes the repo is already cloned as a prerequisite for running the script
-
+git checkout main
 # fetch first to be able to detect if branch already exists 
 git fetch
 
