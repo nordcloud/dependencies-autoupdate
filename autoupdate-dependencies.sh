@@ -41,7 +41,7 @@ fi
 # assumes the repo is already cloned as a prerequisite for running the script
 git checkout main
 # fetch first to be able to detect if branch already exists 
-git fetch
+git fetch origin
 
 branch_exists="$(git branch -r --list origin/$branch_name$branch_path)"
 
@@ -53,8 +53,8 @@ else
     echo "Branch name $branch_name$branch_path already exists"
 
     # check out existing branch
-    echo "Check out branch instead" 
-    git checkout $branch_name$branch_path
+    echo "Check out branch instead"
+    git checkout -b $branch_name$branch_path origin/$branch_name$branch_path
     git pull
 
     # reset with latest from main
