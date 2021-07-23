@@ -85,6 +85,12 @@ EOF
     done < upgraded.log
 fi
 
+echo "CAT upgraded.log"
+eval "cat upgraded.log"
+echo "CAT commit.log"
+eval "cat commit.log"
+git diff
+
 # updates detected
 if [ -n "git diff" ]; then
     echo "Updates detected"
@@ -145,3 +151,5 @@ else
     echo "No dependencies updates were detected"
     exit 0
 fi
+
+eval 'rm -f commit.log upgraded.log'
