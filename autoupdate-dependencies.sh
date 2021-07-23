@@ -85,14 +85,8 @@ EOF
     done < upgraded.log
 fi
 
-echo "CAT upgraded.log"
-eval "cat upgraded.log"
-echo "CAT commit.log"
-eval "cat commit.log"
-
-status="$(git diff)"
-
 # updates detected
+status="$(git diff)"
 if [ -n "$status" ]; then
     echo "Updates detected"
 
@@ -141,10 +135,9 @@ if [ -n "$status" ]; then
     
     # echo $response
     
-    # clean up temporary file
-    echo "Clena up"
+    # clean up temporary files
+    echo "Clena up temporary files"
     eval "rm -f commit.log upgraded.log"
-    eval "ls -alh"
 
     if [[ "$response" == *"already exist"* ]]; then
         echo "Pull request already opened. Updates were pushed to the existing PR instead"
