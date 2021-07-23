@@ -141,6 +141,11 @@ if [ -n "$status" ]; then
     
     # echo $response
     
+    # clean up temporary file
+    echo "Clena up"
+    eval "rm -f commit.log upgraded.log"
+    eval "ls -alh"
+
     if [[ "$response" == *"already exist"* ]]; then
         echo "Pull request already opened. Updates were pushed to the existing PR instead"
         exit 0
@@ -152,7 +157,3 @@ else
     echo "No dependencies updates were detected"
     exit 0
 fi
-
-echo "Clena up"
-eval "rm -f commit.log upgraded.log"
-eval "ls -alh"
