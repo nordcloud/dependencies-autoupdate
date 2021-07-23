@@ -66,7 +66,7 @@ eval "go get -u 2>&1 | awk '/upgraded/ {print \$4, \$5, \$7}' >> upgraded.log"
 eval 'go mod tidy'
 
 # preparation commit message
-if [ -f upgraded.log ]; then
+if [ -s upgraded.log ]; then
     echo "Generate commit message"
     echo "Dependency auto update $update_path_value" | tee -a commit.log
     while read p; do
@@ -117,7 +117,7 @@ if [ -n "$status" ]; then
     fi
 
     # commit the changes to updated files
-    if [ -f commit.log ]; then
+    if [ -s commit.log ]; then
         git commit -a -F commit.log
     else
         git commit -a -m "Auto-updated dependencies $update_path_value"
@@ -128,7 +128,7 @@ if [ -n "$status" ]; then
 
     echo "https://api.github.com/repos/$repo/pulls"
 
-    if [ -f commit.log ]; then
+    if [ -s commit.log ]; then
         # preparation PR message
         commit="$(cat commit.log | sed -E 's/$/\\n/' | tr -d '\n')"
     fi
