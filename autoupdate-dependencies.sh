@@ -89,10 +89,11 @@ echo "CAT upgraded.log"
 eval "cat upgraded.log"
 echo "CAT commit.log"
 eval "cat commit.log"
-git diff
+
+status="$(git diff)"
 
 # updates detected
-if [ -n "git diff" ]; then
+if [ -n "$status" ]; then
     echo "Updates detected"
 
     # configure git authorship
@@ -152,4 +153,6 @@ else
     exit 0
 fi
 
-eval 'rm -f commit.log upgraded.log'
+echo "Clena up"
+eval "rm -f commit.log upgraded.log"
+eval "ls -alh"
