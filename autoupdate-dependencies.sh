@@ -25,10 +25,9 @@ fi
 #     exit 1
 # fi
 
-if [ -n "$update_path" ]; then
-    # remove optional params markers
-    update_path_value=${update_path%?}
-
+# remove optional params markers
+update_path_value=${update_path%?}
+if [ -n "$update_path_value" ]; then
     # if path is set, use that. otherwise default to current working directory
     echo "Change directory to $update_path_value"
     cd "$update_path_value"
@@ -86,6 +85,12 @@ if [ -f upgraded.log ]; then
 EOF
     done < upgraded.log
 fi
+
+echo "GIT status"
+git status
+
+echo "GIT diff"
+git diff
 
 if [ -n "git diff" ]
 then
