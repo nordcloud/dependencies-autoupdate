@@ -3,23 +3,17 @@
 # fail as soon as any command errors
 set -e
 
-# supported branch name: main and master
-default_branch=$1
-token=$2
+token=$1
 # supported language: golang
 # update_command=$2
-update_path=$3
-on_changes_command=$4
+update_path=$2
+on_changes_command=$3
 repo=$GITHUB_REPOSITORY #owner and repository, ie: user/repo
 username=$GITHUB_ACTOR
-
+default_branch="$(git remote show origin | awk '/HEAD branch/ {print $NF}')"
 branch_name="automated-dependencies-update"
 email="noreply@github.com"
 
-if [ -z "$default_branch" ]; then
-    echo "Default branch is not defined, variable set to 'main'"
-    default_branch="main"
-fi
 
 if [ -z "$token" ]; then
     echo "Token is not defined"

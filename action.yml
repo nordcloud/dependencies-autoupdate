@@ -4,9 +4,6 @@ branding:
   icon: 'arrow-up-circle'  
   color: 'green'
 inputs:
-  default-branch:
-    description: Default branch name in repository
-    required: true
   token:
     description: Token used to send pull requests
     required: true
@@ -22,5 +19,5 @@ inputs:
 runs:
   using: 'composite'
   steps:
-     - run: ${{ github.action_path }}/autoupdate-dependencies.sh ${{ inputs.default-branch }} ${{ inputs.token }} ${{ inputs.update-command }} ${{ inputs.update-path }}? ${{ inputs.on-changes-command }}?
+     - run: ${{ github.action_path }}/autoupdate-dependencies.sh ${{ inputs.token }} ${{ inputs.update-command }} ${{ inputs.update-path }}? ${{ inputs.on-changes-command }}?
        shell: bash
