@@ -4,6 +4,9 @@ branding:
   icon: 'arrow-up-circle'  
   color: 'green'
 inputs:
+  default-branch:
+    description: Default branch name in repository
+    required: true
   token:
     description: Token used to send pull requests
     required: true

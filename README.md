@@ -39,7 +39,7 @@ It is recommended to use this action on a [schedule trigger](https://docs.github
 
 Name |	Description	| Required | Default
 --| --| --| --|
-default-branch | Default branch name, ie. main or master | Yes | main
+default-branch | Default branch name in repository, ie. main or master | Yes | N/A
 token |	GITHUB_TOKEN or a repo scoped Personal Access Token (PAT). | Yes | N/A
 ~~update-command~~ | ~~Command to update the dependencies and validate the changes. e.g. `cargo update && cargo test` or `go get -u && go mod tidy && go build`.~~ | ~~Yes~~ | ~~N/A~~
 update-path | Path to execute the update command if different from the main working directory. | No | defaults to working directory
