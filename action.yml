@@ -22,5 +22,5 @@ inputs:
 runs:
   using: 'composite'
   steps:
-     - run: ${{ github.action_path }}/autoupdate-dependencies.sh ${{ inputs.token }} ${{ inputs.update-command }} ${{ inputs.update-path }}? ${{ inputs.on-changes-command }}?
+     - run: ${{ github.action_path }}/autoupdate-dependencies.sh ${{ default-branch }} ${{ inputs.token }} ${{ inputs.update-command }} ${{ inputs.update-path }}? ${{ inputs.on-changes-command }}?
        shell: bash
