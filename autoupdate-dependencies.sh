@@ -41,9 +41,8 @@ git checkout main
 # fetch first to be able to detect if branch already exists 
 git fetch origin
 
-branch_exists="$(git branch -r --list origin/$branch_name$branch_path)"
-
 # branch already exists, previous opened PR was not merged
+branch_exists="$(git branch -r --list origin/$branch_name$branch_path)"
 if [ -z "$branch_exists" ]; then
     # create new branch
     git checkout -b $branch_name$branch_path
@@ -135,28 +134,17 @@ if [ -n "$status" ]; then
     
     echo $response
 
-    if [[ "$response" == *"already exist"* ]]; then
-        pull_list=$(curl -X GET -H "Accept: application/vnd.github.v3+json" -H "Authorization: token $token" \
-        --data '{"head":"'"nordcloud:$branch_name$branch_path"'", "base":"'"$branch_name$branch_path"'"}' \
-        "https://api.github.com/repos/$repo/pulls")
-
-        echo "Pull list $pull_list"
-        # pull_number="$(echo "$response" | egrep -o "https://api.github.com/repos/$repo/pulls/([0-9]{1,})\"" |  egrep -o '[[:digit:]]{1,}' | head -1 )"
-        # echo "Pull number: $pull_number"
-
-        # curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: token $token" \
-        #  --data '{"body":"'"$commit"'"\nAuto-generated comment.}' \
-        #  "https://api.github.com/repos/$repo/pulls/$pull_number/comments"
-
-        echo "Pull request already opened. Comment was pushed to the existing PR"
-    else
-        echo "New pull request created"
-    fi
-
     # clean up temporary files
     echo "Clena up temporary files"
     eval "rm -f commit.log upgraded.log"
-    exit 0
+
+    if [[ "$response" == *"already exist"* ]]; then
+        echo "Pull request already opened. Comment was pushed to the existing PR"
+        exit 0
+    else
+        echo "New pull request created"
+        exit 0
+    fi
 else
     echo "No dependencies updates were detected"
     exit 0
