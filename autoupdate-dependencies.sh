@@ -141,7 +141,7 @@ if [ -n "$status" ]; then
 
         curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: token $token" \
          --data '{"body":"'"$commit"'"\nAuto-generated comment.}' \
-         "https://api.github.com/repos/$repo/pulls/$pull_number/comments")
+         "https://api.github.com/repos/$repo/pulls/$pull_number/comments"
 
         echo "Pull request already opened. Comment was pushed to the existing PR"
     else
