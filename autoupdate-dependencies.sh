@@ -134,18 +134,24 @@ if [ -n "$status" ]; then
          "https://api.github.com/repos/$repo/pulls")
     
     # echo $response
-    
+
+    if [[ "$response" == *"already exist"* ]]; then
+        pull_number="$(echo "$response" | egrep -o "https://api.github.com/repos/$repo/pulls/([0-9]{1,})\"" |  egrep -o '[[:digit:]]{1,}' | head -1 )"
+        echo $pull_number
+
+        curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: token $token" \
+         --data '{"body":"'"$commit"'"\nAuto-generated comment.}' \
+         "https://api.github.com/repos/$repo/pulls/$pull_number/comments")
+
+        echo "Pull request already opened. Comment was pushed to the existing PR"
+    else
+        echo "New pull request created"
+    fi
+
     # clean up temporary files
     echo "Clena up temporary files"
     eval "rm -f commit.log upgraded.log"
-
-    if [[ "$response" == *"already exist"* ]]; then
-        echo "Pull request already opened. Updates were pushed to the existing PR instead"
-        exit 0
-    else
-        echo "Pull request created"
-        exit 0
-    fi
+    exit 0
 else
     echo "No dependencies updates were detected"
     exit 0
