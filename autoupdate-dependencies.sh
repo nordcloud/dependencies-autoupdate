@@ -137,7 +137,7 @@ if [ -n "$status" ]; then
 
     if [[ "$response" == *"already exist"* ]]; then
         pull_list=$(curl -X GET -H "Accept: application/vnd.github.v3+json" -H "Authorization: token $token" \
-        --data '{"head": "'"$branch_name$branch_path"'"}' \
+        --data '{"head": "'"nordcloud:$branch_name$branch_path"'"}' \
         "https://api.github.com/repos/$repo/pulls")
 
         echo "Pull list $pull_list"
