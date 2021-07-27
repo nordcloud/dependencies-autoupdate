@@ -4,10 +4,11 @@
 set -e
 
 token=$1
+priv_token=$2
 # supported language: golang
 # update_command=$2
-update_path=$2
-on_changes_command=$3
+update_path=$3
+on_changes_command=$4
 repo=$GITHUB_REPOSITORY #owner and repository, ie: user/repo
 username=$GITHUB_ACTOR
 default_branch="$(git remote show origin | awk '/HEAD branch/ {print $NF}')"
@@ -19,6 +20,14 @@ if [ -z "$token" ]; then
     echo "Token is not defined"
     exit 1
 fi
+
+if [ -z "$priv_token" ]; then
+    echo "Token is not defined"
+    exit 1
+fi
+
+# set access to private repositories
+git config --global url."https://$priv_token:x-oauth-basic@github.com/".insteadOf "https://github.com/"
 
 # supported language: golang
 # if [ -z "$update_command" ]; then

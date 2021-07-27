@@ -1,11 +1,14 @@
 name: 'Dependencies Autoupdate'
 description: 'Language agnostic action that automatically updates dependencies and creates PR with the changes. e.g.: go, js, rust, py, ts'
 branding:
-  icon: 'arrow-up-circle'  
+  icon: 'arrow-up-circle'
   color: 'green'
 inputs:
   token:
     description: Token used to send pull requests
+    required: true
+  priv-token:
+    description: Token used to download dependencies from private repositories
     required: true
   update-command:
     description: Command to update dependencies and do initial checks
@@ -19,5 +22,5 @@ inputs:
 runs:
   using: 'composite'
   steps:
-     - run: ${{ github.action_path }}/autoupdate-dependencies.sh ${{ inputs.token }} ${{ inputs.update-command }} ${{ inputs.update-path }}? ${{ inputs.on-changes-command }}?
+     - run: ${{ github.action_path }}/autoupdate-dependencies.sh ${{ inputs.token }} ${{ inputs.priv-token }} ${{ inputs.update-command }} ${{ inputs.update-path }}? ${{ inputs.on-changes-command }}?
        shell: bash
