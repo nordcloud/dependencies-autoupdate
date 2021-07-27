@@ -2,7 +2,7 @@
 A GitHub action that automates dependencies update. The action is designed to be language agnostic, It can run any dependency update commands and automatically creates a pull request if changes were detected. It can be used in conjunction with other steps to make updating dependencies easier.
 
 dependencies-autoupdate can:
-1. Run a dependencies update command ie: npm update, cargo update.. etc
+1. Run a dependencies update command ie: go get -u ~~npm update, cargo update.. etc~~
 2. Run a validation step to ensure the update command was successful ie: make, cargo test.. etc
 2. Checks out a branch and creates a pull requests with the updated dependencies on success.
 
@@ -25,10 +25,12 @@ jobs:
              
     - name: Run auto dependency update 
       uses: romoh/dependencies-autoupdate@v1
-      with: 
+      with:
         token: ${{ secrets.GITHUB_TOKEN }}
+        priv-token: ${{ secrets.GHTOKEN }}
+        # supported language: golang
         update-command: "'go get -u && go mod tidy && go build'"
-        update-path: "'./test/go'" #optional
+        update-path: ./test/go #optional
 ```
 
 It is recommended to use this action on a [schedule trigger](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#onschedule) at a fixed cadence, but it can be used on other triggers as well. Just note GitHub has limitations on default GITHUB_TOKEN access from forks.
@@ -38,7 +40,8 @@ It is recommended to use this action on a [schedule trigger](https://docs.github
 Name |	Description	| Required | Default
 --| --| --| --|
 token |	GITHUB_TOKEN or a repo scoped Personal Access Token (PAT). | Yes | N/A
-update-command | Command to update the dependencies and validate the changes. e.g. `cargo update && cargo test` or `go get -u && go mod tidy && go build`. | Yes | N/A
+priv-token |	GHTOKEN or a repo scoped Personal Access Token (PAT). | Yes | N/A
+~~update-command~~ | ~~Command to update the dependencies and validate the changes. e.g. `cargo update && cargo test` or `go get -u && go mod tidy && go build`.~~ | ~~Yes~~ | ~~N/A~~
 update-path | Path to execute the update command if different from the main working directory. | No | defaults to working directory
 on-changes-command | Command to execute after updates to dependencies are detected. This will be executed before the pull request is created. e.g. version increment. | No | N/A
 
