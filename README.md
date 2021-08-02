@@ -2,7 +2,7 @@
 A GitHub action that automates dependencies update. The action is designed to be language agnostic, It can run any dependency update commands and automatically creates a pull request if changes were detected. It can be used in conjunction with other steps to make updating dependencies easier.
 
 dependencies-autoupdate can:
-1. Run a dependencies update command ie: go get -u ~~npm update, cargo update.. etc~~
+1. Run a dependencies update command ie: go get -u all ~~npm update, cargo update.. etc~~
 2. Run a validation step to ensure the update command was successful ie: make, cargo test.. etc
 2. Checks out a branch and creates a pull requests with the updated dependencies on success.
 
