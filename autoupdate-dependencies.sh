@@ -71,7 +71,7 @@ fi
 
 echo "Running update command 'go get -u && go mod tidy'"
 # extract upgraded dependencies to file, ie: remote_repo base_ref head_ref
-eval "go get -u 2>&1 | awk '/upgraded/ {print \$4, \$5, \$7}' >> upgraded.log"
+eval "go get -u all 2>&1 | awk '/upgraded/ {print \$4, \$5, \$7}' >> upgraded.log"
 eval 'go mod tidy'
 
 # preparation commit message
