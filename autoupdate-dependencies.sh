@@ -69,9 +69,12 @@ else
     git reset --hard origin/$default_branch
 fi
 
-echo "Running update command 'go get -u && go mod tidy'"
-# extract upgraded dependencies to file, ie: remote_repo base_ref head_ref
-eval "go get -u all 2>&1 | awk '/upgraded/ {print \$4, \$5, \$7}' >> upgraded.log"
+echo "Running update command 'go get -u ./... && go mod tidy'"
+# run 'go get -u ./...' to upgrade to the latest version for all
+# direct and indirect dependencies of the current module
+# (https://github.com/golang/go/wiki/Modules#how-to-upgrade-and-downgrade-dependencies)
+# and extract upgraded dependencies to file, ie: remote_repo base_ref head_ref
+eval "go get -u ./... 2>&1 | awk '/upgraded/ {print \$4, \$5, \$7}' >> upgraded.log"
 eval 'go mod tidy'
 
 # preparation commit message
